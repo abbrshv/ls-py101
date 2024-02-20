@@ -30,7 +30,7 @@ def repeat_input(message, lang='1', last_num=0):
         if invalid_input(value, last_num):
             prompt(error_msg)
         else:
-            return value
+            return value if last_num else float(value)
 
 
 def calculate(lang=''):
@@ -42,13 +42,13 @@ def calculate(lang=''):
 
     messages = MESSAGES[lang]
 
-    amount = float(repeat_input(messages['amount']))
-    rate = float(repeat_input(messages['rate'])) / MONTHS_IN_A_YEAR / 100
+    amount = repeat_input(messages['amount'])
+    rate = repeat_input(messages['rate']) / MONTHS_IN_A_YEAR / 100
     duration = math.floor(
-        float(repeat_input(messages['duration'])) * MONTHS_IN_A_YEAR)
+        repeat_input(messages['duration'])) * MONTHS_IN_A_YEAR
 
     monthly_payment = amount * (rate / (
-                1 - (1 + rate) ** (-duration))) if rate else amount / duration
+            1 - (1 + rate) ** (-duration))) if rate else amount / duration
 
     prompt(messages['result'].format(monthly_payment))
 
