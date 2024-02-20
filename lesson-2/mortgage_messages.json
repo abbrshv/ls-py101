@@ -1,0 +1,8 @@
+{
+  "en": {
+    "welcome": "Welcome to Mortgage Calculator!",
+    "choose_lang": "Please select a language:\n1) English 2) Spanish 3) French",
+    "invalid_number": "Hmm... that doesn't look like a valid number.",
+    "invalid_operation": "You must pick a number between 1 and {last}"
+  }
+}
