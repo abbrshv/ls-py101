@@ -12,31 +12,23 @@ def prompt(message):
     print(f'==> {message}')
 
 
-def invalid_number(value):
+def invalid_input(value, last_num=0):
     try:
         float(value)
     except ValueError:
         return True
-    return False
+    return int(value) not in range(1, last_num + 1) if last_num else False
 
 
-def invalid_operation(choice, rng):
-    return invalid_number(choice) or not int(choice) in rng
-
-
-def repeat_input(message, lang='en', rng=range(0)):
+def repeat_input(message, lang='en', last_num=0):
     while True:
+        error_msg = MESSAGES[lang][
+            'invalid_rng' if last_num else 'invalid_num'].format(last=last_num)
+
         prompt(message)
         value = input()
 
-        if rng:
-            if invalid_operation(value, rng):
-                prompt(
-                    MESSAGES[lang]['invalid_operation'].format(last=rng[-1]))
-            else:
-                return value
+        if invalid_input(value, last_num):
+            prompt(error_msg)
         else:
-            if invalid_number(value):
-                prompt(MESSAGES[lang]['invalid_number'])
-            else:
-                return value
+            return value
