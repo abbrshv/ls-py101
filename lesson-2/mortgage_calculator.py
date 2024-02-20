@@ -51,4 +51,5 @@ def calculate(lang=''):
 
     prompt(messages['result'].format(monthly_payment))
 
+
 calculate()
