@@ -41,6 +41,7 @@ def calculate(lang=''):
         return
 
     messages = MESSAGES[lang]
+    prompt(messages['welcome'])
 
     amount = repeat_input(messages['amount'])
     rate = repeat_input(messages['rate']) / MONTHS_IN_A_YEAR / 100
@@ -51,6 +52,9 @@ def calculate(lang=''):
             1 - (1 + rate) ** (-duration))) if rate else amount / duration
 
     prompt(messages['result'].format(monthly_payment))
+
+    if repeat_input(messages['again'], lang, 2) == '1':
+        calculate(lang)
 
 
 calculate()
