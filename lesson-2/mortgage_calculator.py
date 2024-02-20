@@ -2,12 +2,9 @@ import json
 import math
 
 MONTHS_IN_A_YEAR = 12
+
 with open('mortgage_messages.json', 'r') as file:
     MESSAGES = json.load(file)
-
-
-def numbers_in_string(string):
-    return [int(char) for char in string if char.isdigit()]
 
 
 def prompt(message):
@@ -53,6 +50,5 @@ def calculate(lang=''):
         -math.floor(duration)))) if rate else amount / duration
 
     prompt(messages['result'].format(monthly_payment))
-
 
 calculate()
