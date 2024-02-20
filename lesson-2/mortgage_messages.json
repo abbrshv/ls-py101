@@ -14,8 +14,8 @@
   "2": {
     "language": "Español",
     "welcome": "¡Bienvenido a la Calculadora de Hipotecas!",
-    "amount": "Enter the loan amount in U.S. dollars, for example \"100000\":",
-    "rate": "Ingrese el monto del préstamo en dólares estadounidenses, por ejemplo \"5\":",
+    "amount": "Ingrese el monto del préstamo en dólares estadounidenses, por ejemploUpd \"100000\":",
+    "rate": "Entrez le taux d'intérêt annuel en pourcentage, por ejemplo \"5\":",
     "duration": "Ingrese la duración del préstamo en años en años, por ejemplo \"10\":",
     "result": "Su pago mensual es {:0.2f}$\n",
     "again": "Voulez-vous calculer un autre prêt ?\n1) Oui 2) Non",
