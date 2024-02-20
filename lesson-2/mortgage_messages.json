@@ -1,7 +1,12 @@
 {
-  "en": {
+  "1": {
+    "language": "English",
+    "choose_lang": "Please select a language:\n{langs}",
     "welcome": "Welcome to Mortgage Calculator!",
-    "choose_lang": "Please select a language:\n1) English 2) Spanish 3) French",
+    "amount": "Enter the loan amount in U.S. dollars, for example \"100000\":",
+    "rate": "Enter the annual interest rate in percents, for example \"5\":",
+    "duration": "Enter the loan duration in years in years, for example \"10\":",
+    "result": "Your monthly payment is {:0.2f}$",
     "invalid_num": "Hmm... that doesn't look like a valid number.",
     "invalid_rng": "You must pick a number between 1 and {last}"
   }
