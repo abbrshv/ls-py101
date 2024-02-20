@@ -44,10 +44,11 @@ def calculate(lang=''):
 
     amount = float(repeat_input(messages['amount']))
     rate = float(repeat_input(messages['rate'])) / MONTHS_IN_A_YEAR / 100
-    duration = float(repeat_input(messages['duration'])) * MONTHS_IN_A_YEAR
+    duration = math.floor(
+        float(repeat_input(messages['duration'])) * MONTHS_IN_A_YEAR)
 
-    monthly_payment = amount * (rate / (1 - (1 + rate) ** (
-        -math.floor(duration)))) if rate else amount / duration
+    monthly_payment = amount * (rate / (
+                1 - (1 + rate) ** (-duration))) if rate else amount / duration
 
     prompt(messages['result'].format(monthly_payment))
 
