@@ -19,7 +19,7 @@ def invalid_input(value, last_num=0):
     return int(value) not in range(1, last_num + 1) if last_num else False
 
 
-def repeat_input(message, lang='1', last_num=0):
+def validate_input(message, lang='1', last_num=0):
     while True:
         error_msg = MESSAGES[lang][
             'invalid_rng' if last_num else 'invalid_num'].format(last=last_num)
@@ -36,14 +36,14 @@ def repeat_input(message, lang='1', last_num=0):
 def choose_language():
     langs = [f'{key}) {val['language']}' for key, val in MESSAGES.items()]
     lang_msg = MESSAGES['1']['choose_lang'].format(langs=' '.join(langs))
-    return repeat_input(lang_msg, '1', len(MESSAGES))
+    return validate_input(lang_msg, '1', len(MESSAGES))
 
 
 def calc_monthly_payment(messages):
-    amount = repeat_input(messages['amount'])
-    rate = repeat_input(messages['rate']) / MONTHS_IN_A_YEAR / 100
+    amount = validate_input(messages['amount'])
+    rate = validate_input(messages['rate']) / MONTHS_IN_A_YEAR / 100
     duration = math.floor(
-        repeat_input(messages['duration'])) * MONTHS_IN_A_YEAR
+        validate_input(messages['duration'])) * MONTHS_IN_A_YEAR
 
     return amount * (rate / (
             1 - (1 + rate) ** (-duration))) if rate else amount / duration
@@ -58,7 +58,7 @@ def calculator(lang=''):
     prompt(messages['welcome'])
     prompt(messages['result'].format(calc_monthly_payment(messages)))
 
-    if repeat_input(messages['again'], lang, 2) == '1':
+    if validate_input(messages['again'], lang, 2) == '1':
         calculator(lang)
 
 
