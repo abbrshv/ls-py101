@@ -33,28 +33,29 @@ def repeat_input(message, lang='1', last_num=0):
             return value if last_num else float(value)
 
 
-def calculate(lang=''):
-    if not lang:
-        langs = [f'{key}) {val['language']}' for key, val in MESSAGES.items()]
-        lang_msg = MESSAGES['1']['choose_lang'].format(langs=' '.join(langs))
-        calculate(repeat_input(lang_msg, '1', len(MESSAGES)))
-        return
-
-    messages = MESSAGES[lang]
-    prompt(messages['welcome'])
-
+def calc_monthly_payment(messages):
     amount = repeat_input(messages['amount'])
     rate = repeat_input(messages['rate']) / MONTHS_IN_A_YEAR / 100
     duration = math.floor(
         repeat_input(messages['duration'])) * MONTHS_IN_A_YEAR
 
-    monthly_payment = amount * (rate / (
+    return amount * (rate / (
             1 - (1 + rate) ** (-duration))) if rate else amount / duration
 
-    prompt(messages['result'].format(monthly_payment))
+
+def calculator(lang=''):
+    if not lang:
+        langs = [f'{key}) {val['language']}' for key, val in MESSAGES.items()]
+        lang_msg = MESSAGES['1']['choose_lang'].format(langs=' '.join(langs))
+        calculator(repeat_input(lang_msg, '1', len(MESSAGES)))
+        return
+
+    messages = MESSAGES[lang]
+    prompt(messages['welcome'])
+    prompt(messages['result'].format(calc_monthly_payment(messages)))
 
     if repeat_input(messages['again'], lang, 2) == '1':
-        calculate(lang)
+        calculator(lang)
 
 
-calculate()
+calculator()
