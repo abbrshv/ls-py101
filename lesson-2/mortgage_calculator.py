@@ -33,6 +33,12 @@ def repeat_input(message, lang='1', last_num=0):
             return value if last_num else float(value)
 
 
+def choose_language():
+    langs = [f'{key}) {val['language']}' for key, val in MESSAGES.items()]
+    lang_msg = MESSAGES['1']['choose_lang'].format(langs=' '.join(langs))
+    return repeat_input(lang_msg, '1', len(MESSAGES))
+
+
 def calc_monthly_payment(messages):
     amount = repeat_input(messages['amount'])
     rate = repeat_input(messages['rate']) / MONTHS_IN_A_YEAR / 100
@@ -45,9 +51,7 @@ def calc_monthly_payment(messages):
 
 def calculator(lang=''):
     if not lang:
-        langs = [f'{key}) {val['language']}' for key, val in MESSAGES.items()]
-        lang_msg = MESSAGES['1']['choose_lang'].format(langs=' '.join(langs))
-        calculator(repeat_input(lang_msg, '1', len(MESSAGES)))
+        calculator(choose_language())
         return
 
     messages = MESSAGES[lang]
