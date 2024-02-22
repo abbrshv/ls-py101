@@ -5,9 +5,9 @@ RPS = {
     'Basic': {'choices': ('Rock', 'Paper', 'Scissors')},
     'Spock Lizard Expansion': {
         'choices': ('Rock', 'Paper', 'Scissors', 'Spock', 'Lizard'),
-        'rules': '''Scissors cuts Paper covers Rock crushes
-           Lizard poisons Spock smashes Scissors decapitates Lizard
-           eats Paper disproves Spock vaporizes Rock crushes Scissors'''
+        'rules': '''Scissors cuts Paper covers Rock crushes Lizard poisons 
+Spock smashes Scissors decapitates Lizard eats 
+Paper disproves Spock vaporizes Rock crushes Scissors'''
     },
 }
 WIN_ROUNDS = 3
@@ -17,17 +17,21 @@ def prompt(message):
     print(f'==> {message}')
 
 
+def clear_terminal():
+    os.system('cls||clear')  # Should clear console for both Win and macOS/Unix
+
+
 def get_player_choice(valid_choices):
     prompt(f'Choose one: {', '.join(valid_choices)}')
     if any(len(val) > 1 for val in valid_choices):
-        prompt(f'You can write either a full word, e.g: "{valid_choices[0]}",'
-               f' or first letter(s) only, e.g: '
+        prompt(f'You can write either a full word, e.g. "{valid_choices[0]}",'
+               f' or first letter(s) only, e.g. '
                f'"{valid_choices[0][0]}", "{valid_choices[0][0:2].lower()}"')
 
     choice = input().strip().lower()
     matches = [val for val in valid_choices if val.lower().startswith(choice)]
 
-    os.system('cls||clear')  # Should clear console for both Win and macOS/Unix
+    clear_terminal()
 
     match len(matches):
         case 0:
@@ -36,8 +40,8 @@ def get_player_choice(valid_choices):
             return matches[0]
         case _:
             prompt(f'You probably meant one of: {", ".join(matches)}?\n'
-                   f'Adding one more letter might make it easier to guess '
-                   f'your intentions\n')
+                   f'Using two letters, e.g. "{matches[0][0:2].lower()}" '
+                   f'might clarify that\n')
 
     return get_player_choice(valid_choices)
 
@@ -54,6 +58,16 @@ def get_round_result(player_choice, computer_choice):
     return is_win
 
 
+def display_rules(game_mode):
+    prompt('Would you like to see the rules? y/n')
+    if get_player_choice(['y', 'n']) == 'y':
+        clear_terminal()
+        print(RPS[game_mode]['rules'] + '\n')
+        prompt('Press Enter to begin the game')
+        input()
+        clear_terminal()
+
+
 def play_game(game_mode=''):
     if not game_mode:
         prompt('Hello there! Welcome to Rock Paper Scissors!')
@@ -61,6 +75,9 @@ def play_game(game_mode=''):
         game_mode = get_player_choice(list(RPS.keys()))
         play_game(game_mode)
         return
+
+    if game_mode != 'Basic':
+        display_rules(game_mode)
 
     valid_choices = RPS[game_mode]['choices']
     prompt(f'Let the game of {', '.join(valid_choices[:-1])} '
