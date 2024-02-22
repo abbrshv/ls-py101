@@ -67,7 +67,7 @@ def play_game():
         if round_result is not None:
             score['player' if round_result else 'computer'] += 1
 
-        prompt(f'You - {score['player']}  Computer - {score['computer']}\n')
+        prompt(f'You: {score['player']}  Computer: {score['computer']}\n')
 
     player_won = score['player'] == WIN_ROUNDS
     prompt(f'Game Over, the winner is {'You' if player_won else 'Computer'}. '
