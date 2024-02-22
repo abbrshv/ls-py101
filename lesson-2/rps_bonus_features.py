@@ -11,7 +11,7 @@ def prompt(message):
 def get_player_choice(valid_choices):
     prompt(f'Choose one: {', '.join(valid_choices)}')
     prompt(f'You can write a either a full word, e.g: "{valid_choices[0]}",'
-           f' or a short version, e.g: '
+           f' or first letter(s) only, e.g: '
            f'"{valid_choices[0][0]}", "{valid_choices[0][0:2]}"')
 
     choice = input().strip().lower()
