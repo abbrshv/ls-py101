@@ -45,8 +45,8 @@ def get_player_choice(valid_choices):
     return get_player_choice(valid_choices)
 
 
-def determine_winner(player_choice, computer_choice):
-    round_result = player_choice - computer_choice
+def determine_winner(player_choice_idx, computer_choice_idx):
+    round_result = player_choice_idx - computer_choice_idx
 
     is_tie = round_result == 0
     is_win = round_result % 2 == 0 if round_result < 0 \
