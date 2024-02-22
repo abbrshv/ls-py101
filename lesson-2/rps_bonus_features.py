@@ -1,7 +1,9 @@
 import os
+from random import randrange
 
 MODES = {'basic rps': ('rock', 'paper', 'scissors'),
          'spock lizard': ('rock', 'paper', 'scissors', 'spock', 'lizard'), }
+WIN_ROUNDS = 3
 
 
 def prompt(message):
@@ -10,18 +12,18 @@ def prompt(message):
 
 def get_player_choice(valid_choices):
     prompt(f'Choose one: {', '.join(valid_choices)}')
-    prompt(f'You can write a either a full word, e.g: "{valid_choices[0]}",'
+    prompt(f'You can write either a full word, e.g: "{valid_choices[0]}",'
            f' or first letter(s) only, e.g: '
            f'"{valid_choices[0][0]}", "{valid_choices[0][0:2]}"')
 
     choice = input().strip().lower()
     matches = [option for option in valid_choices if option.startswith(choice)]
 
-    os.system('cls||clear')
+    os.system('cls||clear')  # Should clear console for both Win and macOS/Unix
 
     match len(matches):
         case 0:
-            prompt('That\'s not a valid choice\n')
+            prompt('That\'s not a valid choice\n\n')
         case 1:
             return matches[0]
         case _:
@@ -40,5 +42,36 @@ def get_round_result(player_choice, computer_choice):
         else round_result % 2 != 0
 
     if is_tie:
-        return []
-    return {'player': int(is_win), 'computer': int(not is_win)}
+        return None
+    return is_win
+
+
+def play_game():
+    prompt('Would you like to play a game of Rock, Paper, Scissors?')
+    prompt('Or a game of  Rock, Paper, Scissors, Spock, Lizard?\n')
+
+    game_mode = get_player_choice(list(MODES.keys()))
+    valid_choices = MODES[game_mode]
+    prompt(f'Let the game of {', '.join(valid_choices[:-1])} '
+           f'and {valid_choices[-1]} begin!\n\n')
+
+    score = {'player': 0, 'computer': 0}
+    while score['player'] < WIN_ROUNDS and score['computer'] < WIN_ROUNDS:
+        player_choice = get_player_choice(valid_choices)
+        computer_choice = randrange(len(valid_choices))
+        prompt(f'You chose {player_choice}, '
+               f'computer chose {valid_choices[computer_choice]}')
+
+        round_result = get_round_result(valid_choices.index(player_choice),
+                                        computer_choice)
+        if round_result is not None:
+            score['player' if round_result else 'computer'] += 1
+
+        prompt(f'You - {score['player']}  Computer - {score['computer']}\n')
+
+    player_won = score['player'] == WIN_ROUNDS
+    prompt(f'Game Over, the winner is {'You' if player_won else 'Computer'}. '
+           f'{'Congratulations' if player_won else 'Good luck next time'}!')
+
+
+play_game()
