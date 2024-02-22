@@ -1,9 +1,15 @@
 import os
 from random import randrange
 
-MODES = {'Basic': ('Rock', 'Paper', 'Scissors'),
-         'Spock Lizard Expansion': (
-             'Rock', 'Paper', 'Scissors', 'Spock', 'Lizard'), }
+RPS = {
+    'Basic': {'choices': ('Rock', 'Paper', 'Scissors')},
+    'Spock Lizard Expansion': {
+        'choices': ('Rock', 'Paper', 'Scissors', 'Spock', 'Lizard'),
+        'rules': '''Scissors cuts Paper covers Rock crushes
+           Lizard poisons Spock smashes Scissors decapitates Lizard
+           eats Paper disproves Spock vaporizes Rock crushes Scissors'''
+    },
+}
 WIN_ROUNDS = 3
 
 
@@ -52,11 +58,11 @@ def play_game(game_mode=''):
     if not game_mode:
         prompt('Hello there! Welcome to Rock Paper Scissors!')
         prompt('What kind of Rock Paper Scissors would you like to play?\n')
-        game_mode = get_player_choice(list(MODES.keys()))
+        game_mode = get_player_choice(list(RPS.keys()))
         play_game(game_mode)
         return
 
-    valid_choices = MODES[game_mode]
+    valid_choices = RPS[game_mode]['choices']
     prompt(f'Let the game of {', '.join(valid_choices[:-1])} '
            f'and {valid_choices[-1]} begin!\n\n')
 
