@@ -50,7 +50,7 @@ def get_round_result(player_choice, computer_choice):
 
 def play_game(game_mode=''):
     if not game_mode:
-        prompt('Hello there! Welcome to Rock Paper Scissors')
+        prompt('Hello there! Welcome to Rock Paper Scissors!')
         prompt('What kind of Rock Paper Scissors would you like to play?\n')
         game_mode = get_player_choice(list(MODES.keys()))
         play_game(game_mode)
