@@ -31,3 +31,15 @@ def get_player_choice(valid_choices):
                    f'your intentions\n')
 
     get_player_choice(valid_choices)
+
+
+def get_round_result(player_choice, computer_choice):
+    round_result = player_choice - computer_choice
+
+    is_tie = round_result == 0
+    is_win = round_result % 2 == 0 if round_result < 0 \
+        else round_result % 2 != 0
+
+    if is_tie:
+        return []
+    return {'player': int(is_win), 'computer': int(not is_win)}
