@@ -45,7 +45,7 @@ def get_player_choice(valid_choices):
     return get_player_choice(valid_choices)
 
 
-def get_round_result(player_choice, computer_choice):
+def determine_winner(player_choice, computer_choice):
     round_result = player_choice - computer_choice
 
     is_tie = round_result == 0
@@ -55,6 +55,16 @@ def get_round_result(player_choice, computer_choice):
     if is_tie:
         return None
     return is_win
+
+
+def play_round(valid_choices):
+    player_choice = get_player_choice(valid_choices)
+    computer_choice = randrange(len(valid_choices))
+    prompt(f'You chose {player_choice}, '
+           f'computer chose {valid_choices[computer_choice]}')
+
+    return determine_winner(valid_choices.index(player_choice),
+                            computer_choice)
 
 
 def display_rules(game_mode):
@@ -84,13 +94,8 @@ def play_game(game_mode=''):
 
     score = {'player': 0, 'computer': 0}
     while score['player'] < WIN_ROUNDS and score['computer'] < WIN_ROUNDS:
-        player_choice = get_player_choice(valid_choices)
-        computer_choice = randrange(len(valid_choices))
-        prompt(f'You chose {player_choice}, '
-               f'computer chose {valid_choices[computer_choice]}')
+        round_result = play_round(valid_choices)
 
-        round_result = get_round_result(valid_choices.index(player_choice),
-                                        computer_choice)
         if round_result is not None:
             score['player' if round_result else 'computer'] += 1
 
