@@ -12,8 +12,8 @@ def prompt(message):
 
 
 def get_player_choice(valid_choices):
+    prompt(f'Choose one: {', '.join(valid_choices)}')
     if any(len(val) > 1 for val in valid_choices):
-        prompt(f'Choose one: {', '.join(valid_choices)}')
         prompt(f'You can write either a full word, e.g: "{valid_choices[0]}",'
                f' or first letter(s) only, e.g: '
                f'"{valid_choices[0][0]}", "{valid_choices[0][0:2].lower()}"')
@@ -48,11 +48,14 @@ def get_round_result(player_choice, computer_choice):
     return is_win
 
 
-def play_game():
-    prompt('Hello there! Welcome to Rock Paper Scissors')
-    prompt('What kind of Rock Paper Scissors would you like to play?\n')
+def play_game(game_mode=''):
+    if not game_mode:
+        prompt('Hello there! Welcome to Rock Paper Scissors')
+        prompt('What kind of Rock Paper Scissors would you like to play?\n')
+        game_mode = get_player_choice(list(MODES.keys()))
+        play_game(game_mode)
+        return
 
-    game_mode = get_player_choice(list(MODES.keys()))
     valid_choices = MODES[game_mode]
     prompt(f'Let the game of {', '.join(valid_choices[:-1])} '
            f'and {valid_choices[-1]} begin!\n\n')
@@ -73,7 +76,13 @@ def play_game():
 
     player_won = score['player'] == WIN_ROUNDS
     prompt(f'Game Over, {'You' if player_won else 'Computer'} won. '
-           f'{'Congratulations' if player_won else 'Good luck next time'}!')
+           f'{'Congratulations' if player_won else 'Good luck next time'}! '
+           'Care for another game? y/n')
+
+    if get_player_choice(['y', 'n']) == 'y':
+        play_game(game_mode)
+    else:
+        prompt('Goodbye, see you soon!')
 
 
 play_game()
