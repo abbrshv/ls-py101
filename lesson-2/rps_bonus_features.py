@@ -68,7 +68,7 @@ def play_round(valid_choices):
 
 
 def display_rules(game_mode):
-    prompt('Would you like to see the rules? y/n')
+    prompt('Would you like to see the rules?')
     if get_player_choice(['y', 'n']) == 'y':
         clear_terminal()
         print(RPS[game_mode]['rules'] + '\n')
@@ -104,7 +104,7 @@ def play_game(game_mode=''):
     player_won = score['player'] == WIN_ROUNDS
     prompt(f'Game Over, {'You' if player_won else 'Computer'} won. '
            f'{'Congratulations' if player_won else 'Good luck next time'}! '
-           'Care for another game? y/n')
+           'Care for another game?')
 
     if get_player_choice(['y', 'n']) == 'y':
         play_game(game_mode)
