@@ -59,12 +59,12 @@ def determine_winner(player_choice, computer_choice):
 
 def play_round(valid_choices):
     player_choice = get_player_choice(valid_choices)
-    computer_choice = randrange(len(valid_choices))
+    computer_choice_idx = randrange(len(valid_choices))
     prompt(f'You chose {player_choice}, '
-           f'computer chose {valid_choices[computer_choice]}')
+           f'computer chose {valid_choices[computer_choice_idx]}')
 
     return determine_winner(valid_choices.index(player_choice),
-                            computer_choice)
+                            computer_choice_idx)
 
 
 def display_rules(game_mode):
