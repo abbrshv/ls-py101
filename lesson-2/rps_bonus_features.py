@@ -1,7 +1,7 @@
 import os
 
-VALID_CHOICES = ('rock', 'paper', 'scissors')
-VALID_CHOICES_EXT = VALID_CHOICES + ('spock', 'lizard')
+MODES = {'basic rps': ('rock', 'paper', 'scissors'),
+         'spock lizard': ('rock', 'paper', 'scissors', 'spock', 'lizard'), }
 
 
 def prompt(message):
@@ -15,22 +15,21 @@ def get_player_choice(valid_choices):
            f'"{valid_choices[0][0]}", "{valid_choices[0][0:2]}"')
 
     choice = input().strip().lower()
-    choices_left = [option for option in valid_choices if
-                    option.startswith(choice)]
+    matches = [option for option in valid_choices if option.startswith(choice)]
 
-    os.system('clear')
+    os.system('cls||clear')
 
-    match len(choices_left):
+    match len(matches):
         case 0:
             prompt('That\'s not a valid choice\n')
         case 1:
-            return valid_choices.index(choices_left[0])
+            return matches[0]
         case _:
-            prompt(f'You probably meant one of: {", ".join(choices_left)}?\n'
+            prompt(f'You probably meant one of: {", ".join(matches)}?\n'
                    f'Adding one more letter might make it easier to guess '
                    f'your intentions\n')
 
-    get_player_choice(valid_choices)
+    return get_player_choice(valid_choices)
 
 
 def get_round_result(player_choice, computer_choice):
