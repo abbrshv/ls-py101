@@ -3,7 +3,7 @@ from random import randrange
 
 MODES = {'Basic': ('Rock', 'Paper', 'Scissors'),
          'Spock Lizard Expansion': (
-         'Rock', 'Paper', 'Scissors', 'Spock', 'Lizard'), }
+             'Rock', 'Paper', 'Scissors', 'Spock', 'Lizard'), }
 WIN_ROUNDS = 3
 
 
