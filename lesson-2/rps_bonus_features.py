@@ -15,7 +15,8 @@ def get_player_choice(valid_choices):
            f'"{valid_choices[0][0]}", "{valid_choices[0][0:2]}"')
 
     choice = input().strip().lower()
-    choices_left = [option for option in valid_choices if choice in option]
+    choices_left = [option for option in valid_choices if
+                    option.startswith(choice)]
 
     os.system('clear')
 
