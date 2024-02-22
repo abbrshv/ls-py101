@@ -1,8 +1,9 @@
 import os
 from random import randrange
 
-MODES = {'basic rps': ('rock', 'paper', 'scissors'),
-         'spock lizard': ('rock', 'paper', 'scissors', 'spock', 'lizard'), }
+MODES = {'Basic': ('Rock', 'Paper', 'Scissors'),
+         'Spock Lizard Expansion': (
+         'Rock', 'Paper', 'Scissors', 'Spock', 'Lizard'), }
 WIN_ROUNDS = 3
 
 
@@ -11,13 +12,14 @@ def prompt(message):
 
 
 def get_player_choice(valid_choices):
-    prompt(f'Choose one: {', '.join(valid_choices)}')
-    prompt(f'You can write either a full word, e.g: "{valid_choices[0]}",'
-           f' or first letter(s) only, e.g: '
-           f'"{valid_choices[0][0]}", "{valid_choices[0][0:2]}"')
+    if any(len(val) > 1 for val in valid_choices):
+        prompt(f'Choose one: {', '.join(valid_choices)}')
+        prompt(f'You can write either a full word, e.g: "{valid_choices[0]}",'
+               f' or first letter(s) only, e.g: '
+               f'"{valid_choices[0][0]}", "{valid_choices[0][0:2].lower()}"')
 
     choice = input().strip().lower()
-    matches = [option for option in valid_choices if option.startswith(choice)]
+    matches = [val for val in valid_choices if val.lower().startswith(choice)]
 
     os.system('cls||clear')  # Should clear console for both Win and macOS/Unix
 
@@ -47,8 +49,8 @@ def get_round_result(player_choice, computer_choice):
 
 
 def play_game():
-    prompt('Would you like to play a game of Rock, Paper, Scissors?')
-    prompt('Or a game of  Rock, Paper, Scissors, Spock, Lizard?\n')
+    prompt('Hello there! Welcome to Rock Paper Scissors')
+    prompt('What kind of Rock Paper Scissors would you like to play?\n')
 
     game_mode = get_player_choice(list(MODES.keys()))
     valid_choices = MODES[game_mode]
@@ -70,7 +72,7 @@ def play_game():
         prompt(f'You: {score['player']}  Computer: {score['computer']}\n')
 
     player_won = score['player'] == WIN_ROUNDS
-    prompt(f'Game Over, the winner is {'You' if player_won else 'Computer'}. '
+    prompt(f'Game Over, {'You' if player_won else 'Computer'} won. '
            f'{'Congratulations' if player_won else 'Good luck next time'}!')
 
 
