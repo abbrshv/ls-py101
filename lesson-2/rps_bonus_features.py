@@ -26,22 +26,21 @@ def get_player_choice(valid_choices):
     if any(len(val) > 1 for val in valid_choices):
         prompt(f'You can write either a full word, e.g. "{valid_choices[0]}",'
                f' or first letter(s) only, e.g. '
-               f'"{valid_choices[0][0]}", "{valid_choices[0][0:2].lower()}"')
+               f'"{valid_choices[0][0]}", "{valid_choices[1][0:2].lower()}"')
 
     choice = input().strip().lower()
     matches = [val for val in valid_choices if val.lower().startswith(choice)]
 
     clear_terminal()
 
-    match len(matches):
-        case 0:
-            prompt('That\'s not a valid choice\n\n')
-        case 1:
-            return matches[0]
-        case _:
-            prompt(f'You probably meant one of: {", ".join(matches)}?\n'
-                   f'Using two letters, e.g. "{matches[0][0:2].lower()}" '
-                   f'might clarify that\n')
+    if len(matches) == 1:
+        return matches[0]
+    if matches:
+        prompt(f'You probably meant one of: {", ".join(matches)}?\n'
+               f'Using two letters, e.g. "{matches[0][0:2].lower()}" '
+               f'might clarify that\n')
+    else:
+        prompt('That\'s not a valid choice\n\n')
 
     return get_player_choice(valid_choices)
 
